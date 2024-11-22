@@ -1,6 +1,3 @@
-include .env
-export
-
 .PHONY: build run stop clean test help
 
 # Show help
