@@ -1,41 +1,16 @@
-.PHONY: build run stop clean test help
+IMAGE_NAME=health-calculator-service
+PORT=5000
 
-# Show help
-help:
-	@echo "Available commands:"
-	@echo "  make build    - Build the Docker image"
-	@echo "  make run      - Run the Flask app in a Docker container"
-	@echo "  make stop     - Stop the running container"
-	@echo "  make clean    - Remove stopped containers"
-	@echo "  make test     - Run the unit tests"
-
-# initialization:
+.PHONY: init run test build clean
 init:
-	@echo "initialization...";
-	@echo "Creation d'un environment virtuelle";\
-	python3 -m venv .venv;\
-	source .venv/bin/activate;\
-	@echo " installer les librairies";\
-	pip3 install -r requirements.txt
-
-test-env:
-	@echo "port = $(PORT)"
-# Build the Docker image
-build:
-	docker build -t $(IMAGE_NAME) .
-
-# Run the Flask app
+	@echo "Installing dependencies..."
+	pip install -r requirements.txt
 run:
-	docker run -d -p $(PORT):5000 $(IMAGE_NAME)
-
-# Stop the running container
-stop:
-	docker stop $$(docker ps -q --filter ancestor=$(IMAGE_NAME))
-
-# Clean up stopped containers
-clean:
-	docker rm $$(docker ps -a -q)
-
-# Run the tests
+	@echo "Running the Flask app..."
+	python app.py
 test:
-	python3 test.py
+	@echo "Running tests..."
+	python -m unittest discover
+build:
+	@echo "Building the Docker image..."
+	docker build -t $(IMAGE_NAME) .
