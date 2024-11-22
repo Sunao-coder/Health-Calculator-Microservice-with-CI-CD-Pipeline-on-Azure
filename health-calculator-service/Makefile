@@ -4,6 +4,8 @@ PORT=5000
 .PHONY: init run test build clean
 init:
 	@echo "Installing dependencies..."
+	python3 -m venv .venv;\
+	source .venv/bin/activate;\
 	pip3 install -r requirements.txt
 run:
 	@echo "Running the Flask app..."
