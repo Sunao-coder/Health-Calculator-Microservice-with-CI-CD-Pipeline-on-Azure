@@ -4,7 +4,7 @@ PORT=5000
 .PHONY: init run test build clean
 init:
 	@echo "Installing dependencies..."
-	pip3 install -r requirements.txt
+	pip install -r requirements.txt
 run:
 	@echo "Running the Flask app..."
 	python app.py
